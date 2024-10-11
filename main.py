@@ -54,7 +54,7 @@ while True:
         previous_class_name = class_name  # Update the previous class name
 
     # Listen to the keyboard for presses.
-    keyboard_input = cv2.waitKey(1)
+    keyboard_input = cv2.waitKey(1) 
 
     # 27 is the ASCII for the esc key on your keyboard.
     if keyboard_input == 27:

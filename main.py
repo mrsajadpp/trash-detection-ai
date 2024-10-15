@@ -56,8 +56,8 @@ while True:
             print("Bio waste found in trash.")
         elif previous_class_name == "plastic":
             print("Plastic waste found in trash.")
-        elif previous_class_name == "metal":
-            print("Metal waste found in trash.")
+        elif previous_class_name == "others":
+            print("Other type waste found in trash.")
         else:
             print("I did'nt understand the waste category.")
 

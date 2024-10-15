@@ -52,14 +52,16 @@ while True:
     if confidence_score > 0.90 and class_name != previous_class_name:
         print(f"Class: {class_name} - Confidence Score: {np.round(confidence_score * 100, 2)}%")
         previous_class_name = class_name  # Update the previous class name
-        if previous_class_name == "biowaste":
+        # Use 'in' to check the class name
+        if "biowaste" in class_name:
             print("Bio waste found in trash.")
-        elif previous_class_name == "plastic":
+        elif "plastic" in class_name:
             print("Plastic waste found in trash.")
-        elif previous_class_name == "others":
+        elif "others" in class_name:
             print("Other type waste found in trash.")
         else:
-            print("I did'nt understand the waste category.")
+            print("Unclassified waste detected.")
+
 
     # Listen to the keyboard for presses.
     keyboard_input = cv2.waitKey(1) 

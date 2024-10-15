@@ -21,7 +21,12 @@ model = load_model("model/keras_Model.h5", compile=False, custom_objects={'Depth
 class_names = open("model/labels.txt", "r").readlines()
 
 # CAMERA can be 0 or 1 based on default camera of your computer
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(1)
+
+if not camera.isOpened():
+    print("Failed to open the camera.")
+else:
+    print("Camera opened successfully.")
 
 # Variable to store the previous class name
 previous_class_name = None

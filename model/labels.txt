@@ -1,4 +1,3 @@
 0 plastic
-1 biowaste
-2 others
-3 unknown
+1 unknown
+2 empty

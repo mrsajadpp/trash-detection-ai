@@ -1,3 +1,2 @@
-0 Sajad
-1 Adwaith
-2 Nothing
+0 biowaste
+1 plastic

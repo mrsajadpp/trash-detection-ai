@@ -1,15 +1,28 @@
 import os
+import serial
+import time
+
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from keras.layers import DepthwiseConv2D
 import cv2  # Install opencv-python
 import numpy as np
 
+# Set up serial communication (adjust 'COM3' to the correct port)
+ser = serial.Serial('COM5', 9600)  # Change 'COM3' to the port your Arduino is connected to
+time.sleep(2)  # Wait for the connection to establish
+
 # Custom DepthwiseConv2D to remove 'groups' argument
 class CustomDepthwiseConv2D(DepthwiseConv2D):
     def __init__(self, **kwargs):
         kwargs.pop('groups', None)  # Remove the 'groups' argument if it's present
         super().__init__(**kwargs)
+
+def send_angle(servo, angle):
+    """Send the angle for a specified servo."""
+    command = f"S{servo}:{angle}\n"
+    ser.write(command.encode())  # Send the command to Arduino
+    time.sleep(0.1)  # Small delay for stability
 
 # Disable scientific notation for clarity
 np.set_printoptions(suppress=True)
@@ -60,12 +73,29 @@ while True:
         # Use 'in' to check the class name
         if "biowaste" in class_name:
             print("Bio waste found in trash.")
+            send_angle(2, 200)
+            time.sleep(4)
+            send_angle(1, 39)
+            time.sleep(4)
+            send_angle(1, 180)
+            time.sleep(2)
+            send_angle(2, 120)
+            time.sleep(2)
         elif "plastic" in class_name:
             print("Plastic waste found in trash.")
-        elif "others" in class_name:
-            print("Other type waste found in trash.")
+            send_angle(2, 50)
+            time.sleep(4)
+            send_angle(1, 39)
+            time.sleep(4)
+            send_angle(1, 180)
+            time.sleep(2)
+            send_angle(2, 120)
+            time.sleep(2)
         else:
             print("Unclassified waste detected.")
+            send_angle(1, 180)
+            send_angle(2, 120)
+            time.sleep(2)
 
 
     # Listen to the keyboard for presses.
